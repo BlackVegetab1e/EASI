@@ -1,0 +1,10 @@
+.vscode/
+__pycache__/
+buffers/
+*.out
+run.sh
+
+.logs/
+.test_writer_log/
+.Cartpole/
+.different_param/

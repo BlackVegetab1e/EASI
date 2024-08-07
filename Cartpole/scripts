@@ -1,0 +1,254 @@
+seed=4
+
+python train_expert.py --seed 0 --env_id new_cart_pole;
+python train_expert.py --seed 1 --env_id new_cart_pole;
+python train_expert.py --seed 2 --env_id new_cart_pole;
+
+python train_DR_Uniform.py --seed 0 --env_id new_cart_pole;
+python train_DR_Uniform.py --seed 1 --env_id new_cart_pole;
+python train_DR_Uniform.py --seed 2 --env_id new_cart_pole;
+python train_DR_Uniform.py --seed 3 --env_id new_cart_pole;
+python train_DR_Uniform.py --seed 4 --env_id new_cart_pole;
+
+python train_expert_ood.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.25;
+python train_expert_ood.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.5;
+python train_expert_ood.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 2.0;
+python train_expert_ood.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 4.0;
+
+
+
+python train_result_collect_new.py --env_id new_cart_pole --seed 0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id new_cart_pole --seed 1 --expert_weight logs/new_cart_pole/SAC_DR/seed1-20240515-1444/final_model/actor.pth;
+python train_result_collect_new.py --env_id new_cart_pole --seed 2 --expert_weight logs/new_cart_pole/SAC_DR/seed2-20240515-1503/final_model/actor.pth;
+
+
+python train_result_collect_new.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD2.0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 0 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD4.0.pth;
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 1 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 1 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 1 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD2.0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 1 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD4.0.pth;
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 2 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 2 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 2 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD2.0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 2 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD4.0.pth;
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 3 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 3 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 3 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD2.0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 3 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD4.0.pth;
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 4 --OOD --OOD_rate 0.25 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 4 --OOD --OOD_rate 0.5 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 4 --OOD --OOD_rate 2.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD2.0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole_OOD --seed 4 --OOD --OOD_rate 4.0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD4.0.pth;
+
+
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole --seed 0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/new_cart_pole/expert/size40000_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole --seed 1 --expert_weight logs/new_cart_pole/SAC_DR/seed1-20240515-1444/final_model/actor.pth --expert_data logs/new_cart_pole/expert/size40000_traj_length200_real_domain_cpu_seed_1.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id new_cart_pole --seed 2 --expert_weight logs/new_cart_pole/SAC_DR/seed2-20240515-1503/final_model/actor.pth --expert_data logs/new_cart_pole/expert/size40000_traj_length200_real_domain_cpu_seed_2.pth;
+
+
+
+
+
+
+
+
+
+python train_DR_Search.py --env_id new_cart_pole --seed 0 --search_params_dir logs/new_cart_pole/search_gaussian/seed_0;
+python train_DR_Search.py --env_id new_cart_pole --seed 1 --search_params_dir logs/new_cart_pole/search_gaussian/seed_1;
+python train_DR_Search.py --env_id new_cart_pole --seed 2 --search_params_dir logs/new_cart_pole/search_gaussian/seed_2;
+
+
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_0OOD0.25;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_0OOD0.5;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_0OOD2.0;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_0OOD4.0;
+
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 1 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_1OOD0.25;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 1 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_1OOD0.5;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 1 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_1OOD2.0;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 1 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_1OOD4.0;
+
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 2 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_2OOD0.25;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 2 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_2OOD0.5;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 2 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_2OOD2.0;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 2 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_2OOD4.0;
+
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 3 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_3OOD0.25;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 3 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_3OOD0.5;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 3 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_3OOD2.0;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 3 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_3OOD4.0;
+
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 4 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_4OOD0.25;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 4 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_4OOD0.5;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 4 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_4OOD2.0;
+python train_DR_Search.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 4 --search_params_dir logs/new_cart_pole_OOD/search_gaussian/seed_4OOD4.0;
+
+
+
+python evaluate_target_domain.py --env_id new_cart_pole --seed 0 --tag Baseline --actor_weight_dir logs/new_cart_pole/SAC_baseline/seed0-20240515-1427/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 1 --tag Baseline --actor_weight_dir logs/new_cart_pole/SAC_baseline/seed1-20240515-1544/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 2 --tag Baseline --actor_weight_dir logs/new_cart_pole/SAC_baseline/seed2-20240515-1446/model;
+
+python evaluate_target_domain.py --env_id new_cart_pole --seed 0 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 1 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 2 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+
+python evaluate_target_domain.py --env_id new_cart_pole --seed 0 --tag DR_Search --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed0-20240515-1806/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 1 --tag DR_Search --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed1-20240515-1819/model;
+python evaluate_target_domain.py --env_id new_cart_pole --seed 2 --tag DR_Search --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed2-20240515-1833/model;
+
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --tag DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --tag Baseline --actor_weight_dir logs/new_cart_pole_OOD/SAC_baseline/seed0-20240515-1447-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --tag Baseline --actor_weight_dir logs/new_cart_pole_OOD/SAC_baseline/seed0-20240515-1505-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --tag Baseline --actor_weight_dir logs/new_cart_pole_OOD/SAC_baseline/seed0-20240515-1521-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --tag Baseline --actor_weight_dir logs/new_cart_pole_OOD/SAC_baseline/seed0-20240515-1535-OOD4.0/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --tag DR_Search --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2007-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --tag DR_Search --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2020-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --tag DR_Search --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2032-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --tag DR_Search --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2045-OOD4.0/model;
+
+
+
+python train_result_collect_new.py --env_id cart_pole_budget --seed 0 --number_of_env 1 --collect_steps 200 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id cart_pole_budget --seed 0 --number_of_env 100 --collect_steps 20000 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+python train_result_collect_new.py --env_id cart_pole_budget --seed 0 --number_of_env 50 --collect_steps 10000 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth;
+
+
+
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj1 --seed 0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size200_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj1 --seed 1 --expert_weight logs/new_cart_pole/SAC_DR/seed1-20240515-1444/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size200_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj1 --seed 2 --expert_weight logs/new_cart_pole/SAC_DR/seed2-20240515-1503/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size200_traj_length200_real_domain_cpu_seed_0.pth;
+
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj50 --seed 0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size10000_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj50 --seed 1 --expert_weight logs/new_cart_pole/SAC_DR/seed1-20240515-1444/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size10000_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj50 --seed 2 --expert_weight logs/new_cart_pole/SAC_DR/seed2-20240515-1503/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size10000_traj_length200_real_domain_cpu_seed_0.pth;
+
+
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj100 --seed 0 --expert_weight logs/new_cart_pole/SAC_DR/seed0-20240515-1427/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size20000_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj100 --seed 1 --expert_weight logs/new_cart_pole/SAC_DR/seed1-20240515-1444/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size20000_traj_length200_real_domain_cpu_seed_0.pth;
+python Search_gail_Gaussian_Cartpole_full.py --env_id cart_pole_budget --tag traj100 --seed 2 --expert_weight logs/new_cart_pole/SAC_DR/seed2-20240515-1503/final_model/actor.pth --expert_data logs/cart_pole_budget/expert/size20000_traj_length200_real_domain_cpu_seed_0.pth;
+
+
+
+
+
+
+
+python train_DR_Search.py --env_id cart_pole_budget --seed 0 --log_mark traj1 --search_params_dir logs/cart_pole_budget/search_gaussian/traj1seed_0;
+python train_DR_Search.py --env_id cart_pole_budget --seed 1 --log_mark traj1 --search_params_dir logs/cart_pole_budget/search_gaussian/traj1seed_1;
+python train_DR_Search.py --env_id cart_pole_budget --seed 2 --log_mark traj1 --search_params_dir logs/cart_pole_budget/search_gaussian/traj1seed_2;
+
+python train_DR_Search.py --env_id cart_pole_budget --seed 0 --log_mark traj50 --search_params_dir logs/cart_pole_budget/search_gaussian/traj50seed_0;
+python train_DR_Search.py --env_id cart_pole_budget --seed 1 --log_mark traj50 --search_params_dir logs/cart_pole_budget/search_gaussian/traj50seed_1;
+python train_DR_Search.py --env_id cart_pole_budget --seed 2 --log_mark traj50 --search_params_dir logs/cart_pole_budget/search_gaussian/traj50seed_1;
+
+python train_DR_Search.py --env_id cart_pole_budget --seed 0 --log_mark traj100 --search_params_dir logs/cart_pole_budget/search_gaussian/traj100seed_0;
+python train_DR_Search.py --env_id cart_pole_budget --seed 1 --log_mark traj100 --search_params_dir logs/cart_pole_budget/search_gaussian/traj100seed_1;
+python train_DR_Search.py --env_id cart_pole_budget --seed 2 --log_mark traj100 --search_params_dir logs/cart_pole_budget/search_gaussian/traj100seed_2;
+
+
+
+
+
+
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 0 --tag traj1  --actor_weight_dir logs/cart_pole_budget/train_search/traj1/seed0-20240516-2200/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 1 --tag traj1  --actor_weight_dir logs/cart_pole_budget/train_search/traj1/seed1-20240516-2203/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 2 --tag traj1  --actor_weight_dir logs/cart_pole_budget/train_search/traj1/seed2-20240516-2205/model;
+
+
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 0 --tag traj50  --actor_weight_dir logs/cart_pole_budget/train_search/traj50/seed0-20240516-2208/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 1 --tag traj50  --actor_weight_dir logs/cart_pole_budget/train_search/traj50/seed1-20240516-2210/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 2 --tag traj50  --actor_weight_dir logs/cart_pole_budget/train_search/traj50/seed2-20240516-2213/model;
+
+
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 0 --tag traj100  --actor_weight_dir logs/cart_pole_budget/train_search/traj100/seed0-20240516-2215/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 1 --tag traj100  --actor_weight_dir logs/cart_pole_budget/train_search/traj100/seed1-20240516-2218/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 2 --tag traj100  --actor_weight_dir logs/cart_pole_budget/train_search/traj100/seed2-20240516-2220/model;
+
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 0 --tag DR  --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 1 --tag DR  --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 2 --tag DR  --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+
+
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 0 --tag traj200  --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed0-20240515-1806/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 1 --tag traj200  --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed1-20240515-1819/model;
+python evaluate_target_domain_quick.py --env_id cart_pole_budget --seed 2 --tag traj200  --actor_weight_dir logs/new_cart_pole/SAC_DR_search/seed2-20240515-1833/model;
+
+
+
+
+
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2007-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2020-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2032-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --tag OOD_SEARCH --actor_weight_dir llogs/new_cart_pole_OOD/SAC_DR_search/seed0-20240515-2032-OOD2.0/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 1 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed1-20240519-0140-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 1 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed1-20240519-0142-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 1 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed1-20240519-0145-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 1 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed1-20240519-0148-OOD4.0/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 2 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed2-20240519-0150-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 2 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed2-20240519-0153-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 2 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed2-20240519-0155-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 2 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed2-20240519-0158-OOD4.0/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 3 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed3-20240519-0200-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 3 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed3-20240519-0203-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 3 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed3-20240519-0205-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 3 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed3-20240519-0207-OOD4.0/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 4 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed4-20240519-0210-OOD0.25/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 4 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed4-20240519-0212-OOD0.5/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 4 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed4-20240519-0215-OOD2.0/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 4 --tag OOD_SEARCH --actor_weight_dir logs/new_cart_pole_OOD/SAC_DR_search/seed4-20240519-0215-OOD2.0/model;
+
+
+
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 0 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 0 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 0 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 0 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed0-20240515-1427/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 1 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 1 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 1 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 1 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed1-20240515-1444/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 2 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 2 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 2 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 2 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed2-20240515-1503/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 3 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed3-20240519-0110/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 3 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed3-20240519-0110/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 3 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed3-20240519-0110/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 3 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed3-20240519-0110/model;
+
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.25 --seed 4 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed4-20240519-0113/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 0.5 --seed 4 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed4-20240519-0113/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 2.0 --seed 4 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed4-20240519-0113/model;
+python evaluate_target_domain_quick.py --env_id new_cart_pole_OOD --OOD --OOD_rate 4.0 --seed 4 --tag OOD_DR --actor_weight_dir logs/new_cart_pole/SAC_DR/seed4-20240519-0113/model;

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot name="cartpole_real">
+
+    <link name="slider">
+    <visual>
+      <geometry>
+        <box size="0.008 0.44 0.008"/>
+      </geometry>
+      <material name="slider_mat">
+        <color rgba="0.9 0.6 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.008 0.44 0.008"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="cart">
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.065"/>
+      </geometry>
+      <material name="cart_mat">
+        <color rgba="0.3 0.5 0.7 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+          <box size="0.02 0.04 0.065"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+    </inertial>
+  </link>
+
+  <link name="pole">
+    <visual>
+      <geometry>
+        <box size="0.006 0.006 0.27"/>	
+      </geometry>
+      <origin xyz="0 0 0.135"/>
+      <material name="pole_mat">
+        <color rgba="0.1 0.1 0.3 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.006 0.006 0.27"/>	
+      </geometry>
+      <origin xyz="0 0 0.135"/>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <origin xyz="0 0 0.135"/>
+    </inertial>
+  </link>
+
+  <joint name="slider_to_cart" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 0 0.01"/>
+    <parent link="slider"/>
+    <child link="cart"/>
+    <limit effort="1000.0" lower="-4" upper="4" velocity="100"/>
+  </joint>
+
+  <joint name="cart_to_pole" type="continuous">
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.024 0 0.0125"/>
+    <parent link="cart"/>
+    <child link="pole"/>
+    <limit effort="1000.0" velocity="8"/>
+  </joint>
+  
+</robot>

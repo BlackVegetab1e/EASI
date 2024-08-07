@@ -1,0 +1,8 @@
+python trainGARAT.py --tag OOD025 --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.25.pth --headless True;
+python trainGARAT.py --tag OOD05 --expert_data logs/new_cart_pole_OOD/expert/size40000_traj_length200_real_domain_cpu_seed_0_OOD0.5.pth --headless True;
+
+
+
+python trainGARAT_Policy.py --OOD_RATE 0.5 --GAT_policy logs/Cart_pole_50hz_paper/GAT_pure/OOD05/seed0/model/isaac_step3000000/actor.pth;
+
+python trainGARAT_Policy.py --OOD_RATE 0.25 --GAT_policy logs/Cart_pole_50hz_paper/GAT_pure/OOD025/seed0/model/isaac_step3000000/actor.pth;
