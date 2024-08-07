@@ -8,7 +8,7 @@ The code for various experiments is in the corresponding named folder. This is a
 
 For the sim-to-real experiments, we used the Unitree Go2 as the experimental platform. 
 
-![Go2_sim-2-real_experiment](pics/Go2_sim-2-real_experiment.png)
+<img src="pics/Go2_sim-2-real_experiment.png" alt="Go2_sim-2-real_experiment" style="width:80%;">
 
  The introduction video for the sim-to-real experimental results can be found here at [Sim2Real Video](https://youtu.be/4Zz61-QDLOw).
 
