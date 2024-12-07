@@ -6,7 +6,7 @@ import numpy as np
 # from gail_airl_ppo.env import make_env
 from isaac_gym_env import paramAnt
 
-from EvolutionaryAdversarial.algo import GAIL, SACExpert
+from EvolutionaryAdversarial.algo import StateTransDiscriminator, SACExpert
 
 from EvolutionaryAdversarial.buffer import SerializedBuffer, RefBufferOfTragectory
 import torch
@@ -43,7 +43,7 @@ def collect_demo(args):
     )
 
 
-    gail = GAIL(
+    gail = StateTransDiscriminator(
     buffer_exp=buffer_real,
     state_shape=state_shape,
     action_shape=action_shape,
