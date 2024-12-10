@@ -76,9 +76,10 @@ class CartpoleRealFull(VecTask):
         self.cfg["env"]["numObservations"] = 4
         self.cfg["env"]["numActions"] = 1
 
-
-        self.randomization_params = self.cfg["task"]["randomization_params"]
         self.randomize = self.cfg["task"]["randomize"]
+        if self.randomize:
+            self.randomization_params = self.cfg["task"]["randomization_params"]
+        
 
 
 

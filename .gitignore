@@ -1,5 +1,3 @@
 vscode/*
 __pycache__/*
-*.out
-run.sh
 log/*

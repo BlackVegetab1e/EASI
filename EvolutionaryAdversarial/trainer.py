@@ -151,8 +151,6 @@ class DR_Trainer:
             # # Evaluate regularly.
             if isaac_gym_sum_step % self.eval_interval == 0:
                 print("isaac_steps:",isaac_gym_sum_step," single_step_reard:", rewards.mean().item())
-                # self.evaluate(isaac_gym_sum_step)
-            # TODO 这边添加source domain中的测试调用
                 self.algo.save_models(
                     os.path.join(self.model_dir, f'isaac_step{isaac_gym_sum_step}'))
 
@@ -206,8 +204,6 @@ class DR_Trainer:
             # # Evaluate regularly.
             if isaac_gym_sum_step % self.eval_interval == 0:
                 print("isaac_steps:",isaac_gym_sum_step," single_step_reard:", rewards.mean().item())
-                # self.evaluate(isaac_gym_sum_step)
-            # TODO 这边添加source domain中的测试调用
                 self.algo.save_models(
                     os.path.join(self.model_dir, f'isaac_step{isaac_gym_sum_step}'))
 
