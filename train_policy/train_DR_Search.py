@@ -17,7 +17,7 @@ def setup_seed(seed):
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
 
-
+# TODO 整合三个环境
 
 def run(args):
     setup_seed(args.seed)

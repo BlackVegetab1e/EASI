@@ -90,7 +90,8 @@ def run(args):
             DNA_BOUND_single[i][1] = PRESET_PARMAS[i] * 3 
         
         need_clip = [True for i in range(DNA_SIZE)]
-        need_clip[7] = False
+        if(args.OOD):
+            need_clip[7] = False
 
 
     elif args.task_env == 'Ballbalance': 
@@ -150,8 +151,10 @@ def run(args):
     epoch_disc=20
     )
 
-
-    search_logdir = args.summary_dir+'/'+args.env_id+'/search_gaussian/seed_'+str(args.seed)+args.tag+'/'
+    ood_tag = 'WD'
+    if(args.OOD):
+        ood_tag = 'OOD'
+    search_logdir = f'{args.summary_dir}/{args.env_id}/search_gaussian/{ood_tag}{args.tag}/seed_{str(args.seed)}/'
     writer = SummaryWriter(log_dir= search_logdir)
     
     ref_tragectory_buffer = RefBufferOfTragectory(args.number_of_env, torch.device(DEVICE))
@@ -180,6 +183,7 @@ def run(args):
         np.savetxt(search_logdir+"all_process"+str(gen)+".csv", param_evalution[gen], delimiter="," )
 
 
+# TODO 在这里测试各个算法
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()

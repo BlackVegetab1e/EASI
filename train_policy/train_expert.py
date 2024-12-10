@@ -12,7 +12,7 @@ import torch
 
 DEVICE = 'cuda:0'
 
-
+# TODO 整合三个环境
 def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)

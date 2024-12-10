@@ -15,7 +15,7 @@ import re
 import time
 
 
-
+# TODO 测试是个难题，最后再做这一部分
 
 
 DEVICE = 'cuda:0'
@@ -52,10 +52,6 @@ def main(args):
 
     sort_index = np.argsort(iter_number)
 
-    # for i in sort_index:
-    #     print(i)
-    #     print(files[i] )
-    # print(files)
 
     files = [files[i] for i in sort_index]
     print('There are',len(files),'actors to evaluate')
