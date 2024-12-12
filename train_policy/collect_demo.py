@@ -28,18 +28,31 @@ def collect_demo(args):
 
     if args.env_id == 'Ant': 
         envs = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
-        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
+        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1] 
+        if(args.OOD):    
+            # Body mass
+            PRESET_PARMAS[10]*=args.OOD_rate
 
     elif args.env_id == 'Ballbalance':
         envs = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
         PRESET_PARMAS = [3,5,1,0.3,100,10,5]
+        if(args.OOD):
+            # Ball mass
+            PRESET_PARMAS[0]*=args.OOD_rate
     
     elif args.env_id == 'Cartpole':
         envs = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
         PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
-
-  
+        if(args.OOD):
+            # Cart P
+            PRESET_PARMAS[7]*=args.OOD_rate
+   
     envs.set_params(params=PRESET_PARMAS)
+
+    ood_tag = 'WD'
+    if(args.OOD):
+        ood_tag = f'OOD{args.OOD_rate}'
+    save_dir = f'{args.summary_dir}/{args.env_id}/demonstration/{ood_tag}/size{args.collect_steps}_traj_length{args.trajectory_length}_real_domain_cpu_seed_{args.seed}.pth'
 
 
 
@@ -80,12 +93,7 @@ def collect_demo(args):
         
         print(isaac_step)
 
-    ref_tragectory_buffer.save(os.path.join(
-        'logs',args.env_id,
-        'expert',
-        f'size{args.collect_steps}_traj_length{args.trajectory_length}_real_domain_cpu_seed_{args.seed}.pth', 
-        args.trajectory_length
-    ))
+    ref_tragectory_buffer.save(save_dir, args.trajectory_length)
 
 
 
@@ -96,6 +104,8 @@ if __name__ == '__main__':
     p.add_argument('--seed', type=int, default=2)
     p.add_argument('--expert_weight', type=str, default='logs/Ant/SAC_DR_test/seed2-20240419-1654/final_model/actor.pth')
     p.add_argument('--trajectory_length', type=int, default=200)
+    p.add_argument('--OOD', action='store_true', default=False)
+    p.add_argument('--OOD_rate', type=float, default=1)
     p.add_argument('--number_of_env', type=int, default=100)
     p.add_argument('--collect_steps', type=int, default=40000)
     args = p.parse_args()

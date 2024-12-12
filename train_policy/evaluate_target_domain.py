@@ -29,21 +29,33 @@ def main(args):
     setup_seed(args.seed)
     if args.env_id == 'Ant': 
         envs = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
-        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
+        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1] 
+        if(args.OOD):    
+            # Body mass
+            PRESET_PARMAS[10]*=args.OOD_rate
 
     elif args.env_id == 'Ballbalance':
         envs = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
         PRESET_PARMAS = [3,5,1,0.3,100,10,5]
+        if(args.OOD):
+            # Ball mass
+            PRESET_PARMAS[0]*=args.OOD_rate
     
     elif args.env_id == 'Cartpole':
         envs = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
         PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
+        if(args.OOD):
+            # Cart P
+            PRESET_PARMAS[7]*=args.OOD_rate
    
-
-
-    summary_log_dir = args.summary_dir + args.env_id +'/real_domain_test/' +args.tag+'/seed_'+str(args.seed)
-    writer = SummaryWriter(log_dir= summary_log_dir)
     envs.set_params(params=PRESET_PARMAS)
+
+
+    ood_tag = 'WD'
+    if(args.OOD):
+        ood_tag = f'OOD{args.OOD_rate}'
+    summary_log_dir = f'{args.summary_dir}/{args.env_id}/target_domain_test/{args.tag}{ood_tag}/seed_{str(args.seed)}/'
+    writer = SummaryWriter(log_dir= summary_log_dir)
     state_shape = (*envs.observation_space.shape, 1)
     action_shape = (*envs.action_space.shape, 1)
     buffer_real = None
@@ -54,10 +66,7 @@ def main(args):
 
     sort_index = np.argsort(iter_number)
 
-    # for i in sort_index:
-    #     print(i)
-    #     print(files[i] )
-    # print(files)
+
 
     files = [files[i] for i in sort_index]
     print('There are',len(files),'actors to evaluate')
@@ -125,6 +134,8 @@ if __name__ == '__main__':
     p.add_argument('--seed', type=int, default=1)
     p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_DR_search/seed2-20240419-2013/model')
     p.add_argument('--summary_dir', type=str, default='logs/')
+    p.add_argument('--OOD', action='store_true', default=False)
+    p.add_argument('--OOD_rate', type=float, default=1)
     p.add_argument('--tag', type=str, default='SAC_DR_search')
     p.add_argument('--trajectory_length', type=int, default=200)
     p.add_argument('--number_of_env', type=int, default=100)
