@@ -4,7 +4,7 @@ from datetime import datetime
 
 import numpy as np
 # from gail_airl_ppo.env import make_env
-from isaac_gym_env import paramAnt
+from isaac_gym_env import paramAnt, paramBallBalance, paramCartpoleFull
 from EvolutionaryAdversarial.algo import SAC
 from EvolutionaryAdversarial.trainer import DR_Trainer
 import torch
@@ -12,7 +12,7 @@ import torch
 
 DEVICE = 'cuda:0'
 
-# TODO 整合三个环境
+
 def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -23,9 +23,20 @@ def setup_seed(seed):
 
 def run(args):
     setup_seed(args.seed)
-    env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+    
+    if args.env_id == 'Ant': 
+        env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
 
-    PRESET_PARMAS =  [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]    
+    elif args.env_id == 'Ballbalance':
+        env = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
+        PRESET_PARMAS = [3,5,1,0.3,100,10,5]
+    
+    elif args.env_id == 'Cartpole':
+        env = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
+        PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
+    
+    
 
     algo = SAC(
         state_shape=env.observation_space.shape,

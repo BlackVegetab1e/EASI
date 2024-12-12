@@ -62,6 +62,8 @@ class StateTransDiscriminator():
             
             # Update discriminator.
             # print("Update discriminator.")
+            # print(states)
+            # print(states_exp)
             self.update_disc(states, actions, next_states, \
                              states_exp, actions_exp, next_states_exp, writer)
 

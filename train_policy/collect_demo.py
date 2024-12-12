@@ -4,7 +4,7 @@ from datetime import datetime
 import numpy as np
 
 # from gail_airl_ppo.env import make_env
-from isaac_gym_env import paramAnt
+from isaac_gym_env import paramAnt, paramCartpoleFull, paramBallBalance
 
 from EvolutionaryAdversarial.algo import StateTransDiscriminator, SACExpert
 
@@ -14,7 +14,7 @@ import torch
 DEVICE = 'cuda:0'
 
 
-# TODO 整合三个部分的collect环节
+
 
 def setup_seed(seed):
     torch.manual_seed(seed)
@@ -24,11 +24,21 @@ def setup_seed(seed):
 
 
 def collect_demo(args):
-
     setup_seed(args.seed)
-    PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]       
 
-    envs = paramAnt(args.number_of_env, rl_device=DEVICE, headless=True, seed=args.seed)
+    if args.env_id == 'Ant': 
+        envs = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
+
+    elif args.env_id == 'Ballbalance':
+        envs = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
+        PRESET_PARMAS = [3,5,1,0.3,100,10,5]
+    
+    elif args.env_id == 'Cartpole':
+        envs = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
+        PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
+
+  
     envs.set_params(params=PRESET_PARMAS)
 
 
@@ -73,7 +83,8 @@ def collect_demo(args):
     ref_tragectory_buffer.save(os.path.join(
         'logs',args.env_id,
         'expert',
-        f'size{args.collect_steps}_traj_length{args.trajectory_length}_real_domain_cpu_seed_{args.seed}.pth'
+        f'size{args.collect_steps}_traj_length{args.trajectory_length}_real_domain_cpu_seed_{args.seed}.pth', 
+        args.trajectory_length
     ))
 
 

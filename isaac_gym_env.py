@@ -395,14 +395,14 @@ class paramBallBalance():
 
 if __name__ == "__main__":
     # Test environments, Select env_name in ['Ant', 'Ballbalance', 'Cartpole']
-    env_name = 'Ant'
+    env_name = 'Ballbalance'
     from EvolutionaryAdversarial.algo import SACExpert
     num_envs = 100
 
     if env_name == 'Ant':
         envs = paramAnt(num_envs, 'cpu',0,headless=False) 
         actor_path='example/example_policy/Ant_DR/actor.pth'
-        params=[1.5, 0.3,  0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 0.25]    
+        params=[1.5, 0.3, 0.2, 0.3, 0.1,  0.1, 0.2, 0.1, 0.1, 0.2, 1]    
     if env_name == 'Cartpole':
         envs = paramCartpoleFull(num_envs, 'cpu',0,headless=False)
         actor_path='example/example_policy/Cartpole_DR/actor.pth'

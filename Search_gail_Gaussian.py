@@ -26,6 +26,7 @@ def run(args):
     # 设置种子
     setup_seed(args.seed)
 
+
     if args.env_id == 'Ant': 
         envs = paramAnt(args.number_of_env, rl_device=DEVICE, seed=args.seed, headless=args.headless)
         Sim_Param = [1.5, 0.3, 0.2, 0.3, 0.1,  0.1, 0.2, 0.1, 0.1, 0.2, 1]    
@@ -58,15 +59,12 @@ def run(args):
 
         if args.OOD:
             need_clip[10] = False
-            print('param_10 will not clip')
             need_clip[0] = False
-            print('param_'+str(0)+' will not clip')
             need_clip[2] = False
-            print('param_'+str(2)+' will not clip')
-            need_clip[10] = False
-            print('param_'+str(10)+' will not clip')
+        param_evalution = np.zeros((50,300,11))
 
-    elif args.task_env == 'Cartpole': 
+
+    elif args.env_id == 'Cartpole': 
         envs = paramCartpoleFull(args.number_of_env, rl_device=DEVICE, seed=args.seed, headless=args.headless)
         DNA_BOUND_single = {0:[0.0, 0.0],
                         1:[0.00, 0.0],
@@ -80,11 +78,8 @@ def run(args):
                         9:[0,0],
                         10:[0,0]}
         DNA_SIZE = len(DNA_BOUND_single)
-
         POP_SIZE = args.number_of_env
-
         PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
-
         for i in range(DNA_SIZE):
             DNA_BOUND_single[i][0] = PRESET_PARMAS[i] / 3 
             DNA_BOUND_single[i][1] = PRESET_PARMAS[i] * 3 
@@ -92,15 +87,15 @@ def run(args):
         need_clip = [True for i in range(DNA_SIZE)]
         if(args.OOD):
             need_clip[7] = False
+        param_evalution = np.zeros((50,300,11))
 
 
-    elif args.task_env == 'Ballbalance': 
+    elif args.env_id == 'Ballbalance': 
         envs = paramBallBalance(args.number_of_env, rl_device=DEVICE, seed=args.seed, headless=args.headless)
         Sim_Param = [3,5,1,0.3,100,10,5]
 
         SIM_PARAMS_Lower = [0.33*i for i in Sim_Param] 
         SIM_PARAMS_Upper = [3*i for i in Sim_Param]
-
         DNA_BOUND_single = {0:[0  ,  0],
                             1:[0  ,  0],
                             2:[0  ,  0],
@@ -112,10 +107,10 @@ def run(args):
         for i in range(DNA_SIZE):
             DNA_BOUND_single[i][0] = SIM_PARAMS_Lower[i]
             DNA_BOUND_single[i][1] = SIM_PARAMS_Upper[i]
-        
         need_clip = [True for i in range(DNA_SIZE)]
         if(args.OOD):
             need_clip[0] = False
+        param_evalution = np.zeros((50,300,7))
     
     else:
         print('Wrong task name')
@@ -126,7 +121,7 @@ def run(args):
 
     evo = Evo_Gaussian(DNA_SIZE = DNA_SIZE,DNA_BOUND = DNA_BOUND_single, \
                       POP_SIZE = POP_SIZE, SURVIVE_RATE = args.survive_rate, need_clip= need_clip)
-    param_evalution = np.zeros((50,300,11))
+    
 
 
     state_shape = (*envs.observation_space.shape, 1)
@@ -148,7 +143,7 @@ def run(args):
     device=torch.device(DEVICE),
     batch_size = args.disc_batch_size_per_env*args.number_of_env,
     units_disc=(128, 128),
-    epoch_disc=20
+    epoch_disc=args.epoch_disc
     )
 
     ood_tag = 'WD'
@@ -175,9 +170,11 @@ def run(args):
 
         for i in range(len(tragectory_pop)):
             ref_tragectory_buffer.append(tragectory_pop[i])
+        print(tragectory_pop[0].states)
 
         state_disc.update(writer, ref_tragectory_buffer)
         reward = state_disc.disc.calculate_reward_WGail(tragectory_pop).cpu().numpy()
+        print(reward)
         evo.select_elite(reward)   # keep some good parent for elitism
     for gen in range(50):
         np.savetxt(search_logdir+"all_process"+str(gen)+".csv", param_evalution[gen], delimiter="," )
@@ -199,6 +196,7 @@ if __name__ == '__main__':
 
     p.add_argument('--tag', type=str, default='')
     p.add_argument('--OOD', action='store_true', default=False)
+    p.add_argument('--epoch_disc', type=int, default=20)
 
     p.add_argument('--number_of_env', type=int, default=300)
     p.add_argument('--survive_rate', type=float, default=0.5)

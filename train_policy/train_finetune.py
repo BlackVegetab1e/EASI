@@ -24,8 +24,6 @@ def run(args):
     setup_seed(args.seed)
     env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
 
-
-
         # '''
     # 参数设置表：
     # index|         param                |   value  |    DR_min | DR_max

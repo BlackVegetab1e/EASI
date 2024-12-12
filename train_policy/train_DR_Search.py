@@ -4,7 +4,7 @@ from datetime import datetime
 
 import numpy as np
 # from gail_airl_ppo.env import make_env
-from isaac_gym_env import paramAnt
+from isaac_gym_env import paramAnt, paramCartpoleFull, paramBallBalance
 from EvolutionaryAdversarial.algo import SAC
 from EvolutionaryAdversarial.trainer import DR_Trainer
 import torch
@@ -17,11 +17,18 @@ def setup_seed(seed):
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
 
-# TODO 整合三个环境
 
 def run(args):
     setup_seed(args.seed)
-    env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+    if args.env_id == 'Ant': 
+        env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+
+    elif args.env_id == 'Ballbalance':
+        env = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
+
+    elif args.env_id == 'Cartpole':
+        env = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
+
 
     SIM_PARAMS_MEAN = np.loadtxt(args.search_params_dir+'/50_mean.csv')
     SIM_PARAMS_VAR =  np.loadtxt(args.search_params_dir+'/50_var.csv')              

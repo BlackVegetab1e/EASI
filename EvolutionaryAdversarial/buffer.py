@@ -277,7 +277,7 @@ class RefBufferOfTragectory:
 
         return x, a, x_n
 
-    def save(self, path):
+    def save(self, path, traj_length):
         if not os.path.exists(os.path.dirname(path)):
             os.makedirs(os.path.dirname(path))
         
@@ -303,15 +303,11 @@ class RefBufferOfTragectory:
 
         check = True
         for i in range(self.now_size):
-            rand = torch.randint(0,200, (1,))
-            index = i*200 + rand.item()
+            rand = torch.randint(0,traj_length, (1,))
+            index = i*traj_length + rand.item()
             
             b1 = torch.equal(state_in_one[index], self.ref_buffer[i].states[rand].squeeze())
-
-           
-
             b2 = torch.equal(next_state_in_one[index],self.ref_buffer[i].next_states[rand].squeeze())
-
             b3 = torch.equal(action_in_one[index].squeeze(),self.ref_buffer[i].actions[rand].squeeze())
             if not(b1 and b2 and b3):
                 check = False

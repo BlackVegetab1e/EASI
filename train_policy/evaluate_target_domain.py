@@ -4,7 +4,7 @@ from datetime import datetime
 import numpy as np
 
 # from gail_airl_ppo.env import make_env
-from isaac_gym_env import paramAnt
+from isaac_gym_env import paramAnt, paramBallBalance, paramCartpoleFull
 
 from EvolutionaryAdversarial.algo import  SACExpert
 from torch.utils.tensorboard import SummaryWriter
@@ -27,18 +27,23 @@ def setup_seed(seed):
 
 def main(args):
     setup_seed(args.seed)
-    PRESET_PARMAS =  [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]            #Ant参数
+    if args.env_id == 'Ant': 
+        envs = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+        PRESET_PARMAS = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
 
+    elif args.env_id == 'Ballbalance':
+        envs = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
+        PRESET_PARMAS = [3,5,1,0.3,100,10,5]
+    
+    elif args.env_id == 'Cartpole':
+        envs = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
+        PRESET_PARMAS = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
+   
 
-    envs = paramAnt(args.number_of_env, headless=True , seed=args.seed,rl_device=DEVICE)
 
     summary_log_dir = args.summary_dir + args.env_id +'/real_domain_test/' +args.tag+'/seed_'+str(args.seed)
     writer = SummaryWriter(log_dir= summary_log_dir)
-
     envs.set_params(params=PRESET_PARMAS)
-    
-    
-
     state_shape = (*envs.observation_space.shape, 1)
     action_shape = (*envs.action_space.shape, 1)
     buffer_real = None
@@ -117,10 +122,6 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--env_id', type=str, default='Ant')
     p.add_argument('--cuda', default=True ,action='store_true')
-    # p.add_argument('--seed', type=int, default=0)
-    # p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_DR_search/seed0-20240419-1907/model')
-    # p.add_argument('--seed', type=int, default=1)
-    # p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_DR_search/seed1-20240419-1945/model')
     p.add_argument('--seed', type=int, default=1)
     p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_DR_search/seed2-20240419-2013/model')
     p.add_argument('--summary_dir', type=str, default='logs/')

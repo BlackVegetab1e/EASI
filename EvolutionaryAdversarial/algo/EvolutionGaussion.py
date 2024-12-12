@@ -94,22 +94,7 @@ class Evo_Gaussian():
 
         np.savetxt( search_logdir+str(gen)+"_mean.csv", self.mean_vec, delimiter="," )
         np.savetxt( search_logdir+str(gen)+"_var.csv", self.var, delimiter="," )
-        # mean_values = self.mean_vec
-        # variance_values = self.var
-        # # 绘制图表
-        # labels = range(11)
-        # x = np.arange(len(labels))
 
-        # plt.bar(x - 0.2, mean_values, width=0.4, label='Mean', align='center')
-        # plt.bar(x + 0.2, variance_values, width=0.4, label='Variance', align='center')
-
-        # plt.xlabel('Variables')
-        # plt.ylabel('Values')
-        # plt.title('Mean and Variance of Variables')
-        # plt.xticks(x, labels)
-        # plt.legend()
-
-        # plt.show()
 
 
     

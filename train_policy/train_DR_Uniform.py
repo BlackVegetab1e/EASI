@@ -4,7 +4,7 @@ from datetime import datetime
 
 import numpy as np
 # from gail_airl_ppo.env import make_env
-from isaac_gym_env import paramAnt
+from isaac_gym_env import paramAnt, paramBallBalance, paramCartpoleFull
 from EvolutionaryAdversarial.algo import SAC
 from EvolutionaryAdversarial.trainer import DR_Trainer
 import torch
@@ -22,28 +22,17 @@ def setup_seed(seed):
 
 def run(args):
     setup_seed(args.seed)
-    env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+    if args.env_id == 'Ant': 
+        env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
+        Sim_Param = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
 
-
-
-        # '''
-    # 参数设置表：
-    # index|         param                |   value  |    DR_min | DR_max
-    #    0        foot friction            (1+0)/2=0.5       0      3
-    #    1        foot restitution          0.3              0      1
-    #    2        body-leg-DOF friction     0.1              0      0.4
-    #    3        body-leg-DOF damping      0.3              0      1
-    #    4        body-leg-DOF armature     0.05             0      0.2
-    #    5        foot-leg-DOF friction     0.05             0      0.2
-    #    6        foot-leg-DOF damping      0.2              0      1
-    #    7        foot-leg-DOF armature     0.02             0      0.2
-    #    8        foot mass                 0.02             0      0.2
-    #    9        leg mass                  0.08             0      0.2
-    #    10       body mass                 0.6              0      2
-    # '''
-
-
-    Sim_Param = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]        
+    elif args.env_id == 'Ballbalance':
+        env = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
+        Sim_Param = [3,5,1,0.3,100,10,5]
+    
+    elif args.env_id == 'Cartpole':
+        env = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
+        Sim_Param = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
 
     SIM_PARAMS_Lower = [0.33*i for i in Sim_Param] 
     SIM_PARAMS_Upper = [3*i for i in Sim_Param]

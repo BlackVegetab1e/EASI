@@ -1,22 +1,43 @@
-python train_DR_Search.py --seed 0 --search_params_dir logs/Ant/search_gaussian/seed_0;
-python train_DR_Search.py --seed 1 --search_params_dir logs/Ant/search_gaussian/seed_1;
-python train_DR_Search.py --seed 2 --search_params_dir logs/Ant/search_gaussian/seed_2;
+# DR Train
+python train_DR_Uniform.py --seed 0 --env_id Ant --num_steps 1*10**7 --eval_interval 10**5 --log_mark SAC_DR;
 
+python train_DR_Uniform.py --seed 0 --env_id Cartpole --num_steps 5*10**5 --eval_interval 5*10**3 --log_mark SAC_DR;
 
-python train_DR_Uniform.py --seed 0;
-python train_DR_Uniform.py --seed 1;
-python train_DR_Uniform.py --seed 2;
-
-
-python train_expert.py --seed 0;
-python train_expert.py --seed 1;
-python train_expert.py --seed 2;
+python train_DR_Uniform.py --seed 0 --env_id BallBalance --num_steps 6*10**6 --eval_interval 3*10**4 --log_mark SAC_DR;
 
 
 
-python evaluate_target_domain.py --seed 0 --actor_weight_dir logs/Ant/SAC_DR_search/seed0-20240419-2051/model --logmark SAC_DR_search;
-python evaluate_target_domain.py --seed 1 --actor_weight_dir logs/Ant/SAC_DR_search/seed1-20240419-2119/model --logmark SAC_DR_search;
-python evaluate_target_domain.py --seed 2 --actor_weight_dir logs/Ant/SAC_DR_search/seed2-20240419-2147/model --logmark SAC_DR_search;
+# Demonstration Collect
+python collect_demo.py --env_id Ant --seed 0 --trajectory_length 200 --collect_steps 40000 --expert_weight example/example_policy/Ant/actor.pth;
+
+python collect_demo.py --env_id Cartpole --seed 0 --trajectory_length 200 --collect_steps 40000 --expert_weight example/example_policy/Cartpole/actor.pth;
+
+python collect_demo.py --env_id Ballbalance --seed 0 --trajectory_length 500 --collect_steps 100000 --expert_weight example/example_policy/Ballbalance/actor.pth;
 
 
-python Search_gail_Gaussian_Ant.py --env_id Ant --OOD --tag OOD_1.0 --seed 0 --expert_weight logs/Ant/SAC_DR_test/seed0-20240419-1558/final_model/actor.pth --expert_data logs/Ant/expert/size40000_traj_length200_real_domain_cpu_seed_0.pth;
+
+# Parameter Search
+python Search_gail_Gaussian.py --env_id Ant --tag WD --seed 0 --expert_weight example/example_policy/Ant_DR/actor.pth --expert_data example/example_expert_state_trans/Ant_DR/size40000_traj_length200_real_domain_cpu_seed_0.pth;
+
+python Search_gail_Gaussian.py --env_id Cartpole --tag WD --seed 0 --epoch_disc 10 --expert_weight example/example_policy/Cartpole_DR/actor.pth --expert_data example/example_expert_state_trans/Cartpole_DR/size40000_traj_length200_real_domain_cpu_seed_0.pth;
+
+python Search_gail_Gaussian.py --env_id Ballbalance --tag WD --seed 0 --trajectory_length 500 --expert_weight example/example_policy/Ballablance_DR/actor.pth --expert_data example/example_expert_state_trans/Ballbalance_DR/size50000_traj_length500_real_domain_cpu_seed_0.pth;
+
+
+
+# Search Train
+python train_DR_Search.py --seed 0 --env_id Ant --num_steps 1*10**7 --eval_interval 10**5 --log_mark SAC_DR --search_params_dir logs/Ant/search_gaussian/WDWD/seed_0;;
+
+python train_DR_Search.py --seed 0 --env_id Cartpole --num_steps 5*10**5 --eval_interval 5*10**3 --log_mark SAC_DR --search_params_dir logs/Cartpole/search_gaussian/WDWD/seed_0; 
+
+python train_DR_Search.py --seed 0 --env_id BallBalance --num_steps 6*10**6 --eval_interval 3*10**4 --log_mark SAC_DR --search_params_dir logs/Ballbalance/search_gaussian/WDWD/seed_0;;
+
+
+
+
+# Baseline ORACLE train 
+python train_expert.py --seed 0 --env_id Ant --num_steps 1*10**7 --eval_interval 10**5;
+
+python train_expert.py --seed 0 --env_id Cartpole --num_steps 5*10**5 --eval_interval 5*10**3;
+
+python train_expert.py --seed 0 --env_id BallBalance --num_steps 6*10**6 --eval_interval 3*10**4;
