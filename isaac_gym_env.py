@@ -394,7 +394,7 @@ class paramBallBalance():
 
 if __name__ == "__main__":
     # Test environments, Select env_name in ['Ant', 'Ballbalance', 'Cartpole']
-    env_name = 'Ballbalance'
+    env_name = 'Ant'
     from EvolutionaryAdversarial.algo import SACExpert
     num_envs = 100
 

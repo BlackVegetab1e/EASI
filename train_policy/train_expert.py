@@ -78,12 +78,12 @@ def run(args):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
-    p.add_argument('--num_steps', type=int, default=1*10**7)
-    p.add_argument('--eval_interval', type=int, default=10**5)
-    p.add_argument('--env_id', type=str, default='Ant')
-    p.add_argument('--cuda', default=True ,action='store_true')
-    p.add_argument('--seed', type=int, default=2)
-    p.add_argument('--number_of_env', type=int, default=200)
+    p.add_argument('--num_steps', type=int, default=1*10**7, help='训练多少步(总的环境step)')
+    p.add_argument('--eval_interval', type=int, default=10**5, help='多久记录一下当前的训练表现')
+    p.add_argument('--env_id', type=str, default='Ant', help='这是什么环境')
+    p.add_argument('--cuda', default=True ,action='store_true', help='用哪个设备')
+    p.add_argument('--seed', type=int, default=0, help='随机种子')
+    p.add_argument('--number_of_env', type=int, default=200, help='多少个并行环境')
     
 
     

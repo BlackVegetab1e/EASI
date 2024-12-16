@@ -77,7 +77,6 @@ def main(args):
     sort_index = np.argsort(iter_number)
 
 
-
     files = [files[i] for i in sort_index]
     print('There are',len(files),'actors to evaluate')
     for file in files: #遍历文件夹
@@ -107,13 +106,11 @@ def evaluate(envs, actor_policy, evaluate_steps, number_of_env):
     final_reward = 0
     while now_step < evaluate_steps:
 
-        # Pass to the algorithm to update state and episode timestep.
+
 
         now_step += number_of_env
-        # t0 = time.time_ns()
         state, rewards, done = actor_policy.step(envs, number_of_env, state)
-        # t1 = time.time_ns()
-        # print((t1-t0)*1e-6)
+
 
         if sum_reward is None:
             sum_reward = rewards
@@ -128,28 +125,22 @@ def evaluate(envs, actor_policy, evaluate_steps, number_of_env):
 
                 sum_reward[i] *= 0
                 episode_times += 1
-
- 
-
-
-    # print(rewards.mean().item())
     return (final_reward/episode_times).item()
 
 
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
-    p.add_argument('--env_id', type=str, default='Ant')
-    p.add_argument('--cuda', default=True ,action='store_true')
-    p.add_argument('--seed', type=int, default=1)
-    p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_DR_search/seed2-20240419-2013/model')
-    p.add_argument('--summary_dir', type=str, default='logs/')
-    p.add_argument('--OOD', action='store_true', default=False)
-    p.add_argument('--OOD_rate', type=float, default=1)
-    p.add_argument('--tag', type=str, default='SAC_DR_search')
-    p.add_argument('--trajectory_length', type=int, default=200)
-    p.add_argument('--number_of_env', type=int, default=100)
-    p.add_argument('--evaluate_steps', type=int, default=20000)
+    p.add_argument('--env_id', type=str, default='Ant', help='这是什么环境')
+    p.add_argument('--cuda', default=True ,action='store_true', help='训练时用的设备')
+    p.add_argument('--seed', type=int, default=1, help='随机种子')
+    p.add_argument('--actor_weight_dir', type=str, default='logs/Ant/SAC_Search/seed0-20241216-1355/model', help='用哪些policy控制机器人儿,这里输入的是路径,会把里面的所有model全都测试一遍')
+    p.add_argument('--summary_dir', type=str, default='logs/', help='log放哪')
+    p.add_argument('--OOD', action='store_true', default=False, help='是否进入OOD模式,如果进入,需要与OODrate配合,从而改变目标环境的某个参数值')
+    p.add_argument('--OOD_rate', type=float, default=1, help='目标环境中某个参数值的变化倍率,只有OOD模式下才生效')
+    p.add_argument('--tag', type=str, default='SAC_DR_search', help='在log里面标记一下,这个实验是啥')
+    p.add_argument('--number_of_env', type=int, default=100, help='有多少个并行环境同时给你测试')
+    p.add_argument('--evaluate_steps', type=int, default=20000, help='每个模型测试的步数(step)')
     
     args = p.parse_args()
     main(args)

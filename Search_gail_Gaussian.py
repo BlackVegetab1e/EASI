@@ -180,7 +180,7 @@ def run(args):
         np.savetxt(search_logdir+"all_process"+str(gen)+".csv", param_evalution[gen], delimiter="," )
 
 
-# TODO 在这里测试各个算法
+
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()

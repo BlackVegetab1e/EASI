@@ -22,7 +22,7 @@ import torch
 DEVICE = 'cuda:0'
 
 
-# TODO 这里只需要用一个Ant作为例子即可
+
 def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -56,8 +56,6 @@ def run(args):
     SIM_PARAMS_Upper = [3*i for i in Sim_Param]
     
     env.set_params(SIM_PARAMS_Lower)
-
-
 
 
     algo = SAC(
