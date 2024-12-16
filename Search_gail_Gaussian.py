@@ -170,11 +170,11 @@ def run(args):
 
         for i in range(len(tragectory_pop)):
             ref_tragectory_buffer.append(tragectory_pop[i])
-        print(tragectory_pop[0].states)
+        # print(tragectory_pop[0].states)
 
         state_disc.update(writer, ref_tragectory_buffer)
         reward = state_disc.disc.calculate_reward_WGail(tragectory_pop).cpu().numpy()
-        print(reward)
+        # print(reward)
         evo.select_elite(reward)   # keep some good parent for elitism
     for gen in range(50):
         np.savetxt(search_logdir+"all_process"+str(gen)+".csv", param_evalution[gen], delimiter="," )

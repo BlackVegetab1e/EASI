@@ -1,4 +1,14 @@
 import os
+import sys
+
+# 获取当前文件的绝对路径
+current_file_path = os.path.abspath(__file__)
+# 获取当前文件的目录
+current_dir = os.path.dirname(current_file_path)
+# 获取上一级目录
+parent_dir = os.path.dirname(current_dir)
+# 将上一级目录添加到sys.path中
+sys.path.append(parent_dir)
 import argparse
 from datetime import datetime
 import numpy as np

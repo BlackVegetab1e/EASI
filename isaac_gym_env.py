@@ -392,7 +392,6 @@ class paramBallBalance():
 
 
 
-
 if __name__ == "__main__":
     # Test environments, Select env_name in ['Ant', 'Ballbalance', 'Cartpole']
     env_name = 'Ballbalance'

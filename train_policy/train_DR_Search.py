@@ -1,7 +1,16 @@
 import os
+import sys
+
+# 获取当前文件的绝对路径
+current_file_path = os.path.abspath(__file__)
+# 获取当前文件的目录
+current_dir = os.path.dirname(current_file_path)
+# 获取上一级目录
+parent_dir = os.path.dirname(current_dir)
+# 将上一级目录添加到sys.path中
+sys.path.append(parent_dir)
 import argparse
 from datetime import datetime
-
 import numpy as np
 # from gail_airl_ppo.env import make_env
 from isaac_gym_env import paramAnt, paramCartpoleFull, paramBallBalance
@@ -28,7 +37,9 @@ def run(args):
 
     elif args.env_id == 'Cartpole':
         env = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
-
+    else:
+        print("WRONG NAME")
+        return
 
     SIM_PARAMS_MEAN = np.loadtxt(args.search_params_dir+'/50_mean.csv')
     SIM_PARAMS_VAR =  np.loadtxt(args.search_params_dir+'/50_var.csv')              

@@ -38,22 +38,22 @@
   <link name="pole">
     <visual>
       <geometry>
-        <box size="0.006 0.006 0.7855087679314434" />	
+        <box size="0.006 0.006 0.5853582959985425" />	
       </geometry>
-      <origin xyz="0 0 0.3927543839657217" />
+      <origin xyz="0 0 0.29267914799927125" />
       <material name="pole_mat">
         <color rgba="0.1 0.1 0.3 1" />
       </material>
     </visual>
     <collision>
       <geometry>
-        <box size="0.006 0.006 0.7855087679314434" />	
+        <box size="0.006 0.006 0.5853582959985425" />	
       </geometry>
-      <origin xyz="0 0 0.3927543839657217" />
+      <origin xyz="0 0 0.29267914799927125" />
     </collision>
     <inertial>
       <mass value="1" />
-      <origin xyz="0 0 0.3927543839657217" />
+      <origin xyz="0 0 0.29267914799927125" />
     </inertial>
   </link>
 

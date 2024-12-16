@@ -1,4 +1,14 @@
 import os
+import sys
+
+# 获取当前文件的绝对路径
+current_file_path = os.path.abspath(__file__)
+# 获取当前文件的目录
+current_dir = os.path.dirname(current_file_path)
+# 获取上一级目录
+parent_dir = os.path.dirname(current_dir)
+# 将上一级目录添加到sys.path中
+sys.path.append(parent_dir)
 import argparse
 from datetime import datetime
 import numpy as np
@@ -73,9 +83,7 @@ def collect_demo(args):
     buffer_exp=buffer_real,
     state_shape=state_shape,
     action_shape=action_shape,
-    tragectorch_length= args.trajectory_length, 
     device=torch.device(DEVICE),
-    seed=0,
     )
     isaac_step = 0
     
@@ -102,6 +110,7 @@ if __name__ == '__main__':
     p.add_argument('--env_id', type=str, default='Ant')
     p.add_argument('--cuda', default=True ,action='store_true')
     p.add_argument('--seed', type=int, default=2)
+    p.add_argument('--summary_dir', type=str, default='logs/')
     p.add_argument('--expert_weight', type=str, default='logs/Ant/SAC_DR_test/seed2-20240419-1654/final_model/actor.pth')
     p.add_argument('--trajectory_length', type=int, default=200)
     p.add_argument('--OOD', action='store_true', default=False)

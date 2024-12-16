@@ -1,7 +1,16 @@
 import os
+import sys
+
+# 获取当前文件的绝对路径
+current_file_path = os.path.abspath(__file__)
+# 获取当前文件的目录
+current_dir = os.path.dirname(current_file_path)
+# 获取上一级目录
+parent_dir = os.path.dirname(current_dir)
+# 将上一级目录添加到sys.path中
+sys.path.append(parent_dir)
 import argparse
 from datetime import datetime
-
 import numpy as np
 # from gail_airl_ppo.env import make_env
 from isaac_gym_env import paramAnt, paramBallBalance, paramCartpoleFull
@@ -10,10 +19,13 @@ from EvolutionaryAdversarial.trainer import DR_Trainer
 import torch
 
 
+
+
+
+
+
+
 DEVICE = 'cuda:0'
-
-
-
 def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -25,20 +37,20 @@ def run(args):
     if args.env_id == 'Ant': 
         env = paramAnt(args.number_of_env, DEVICE, seed=args.seed, headless=True)
         Sim_Param = [1.5, 0.3,   0.2, 0.3, 0.1,   0.1, 0.2, 0.1,  0.1, 0.2, 1]     
-
     elif args.env_id == 'Ballbalance':
         env = paramBallBalance(args.number_of_env, DEVICE, seed=args.seed, headless=True) 
-        Sim_Param = [3,5,1,0.3,100,10,5]
-    
+        Sim_Param = [3, 5, 1, 0.3 ,100 ,10 ,5]
     elif args.env_id == 'Cartpole':
         env = paramCartpoleFull(args.number_of_env, DEVICE, seed=args.seed, headless=True)  
         Sim_Param = [0.3, 0.1, 0.3, 3e-04, 2e-03 ,5e-03, 1e-02, 20, 0.3, 5, 0.6]
+    else:
+        print("WRONG NAME")
+        return
 
     SIM_PARAMS_Lower = [0.33*i for i in Sim_Param] 
     SIM_PARAMS_Upper = [3*i for i in Sim_Param]
     
     env.set_params(SIM_PARAMS_Lower)
-
 
 
 
