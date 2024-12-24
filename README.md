@@ -10,7 +10,21 @@ For the sim-to-real experiments, we used the Unitree Go2 as the experimental pla
 
 <img src="pics/Go2_sim-2-real_experiment.png" alt="Go2_sim-2-real_experiment" style="width:80%;display:block; margin-left:auto; margin-right:auto;">
 
- The introduction video for the sim-to-real experimental results can be found here at [OUR PAGE](https://blackvegetab1e.github.io/evolutionary_adversarial/).
+
+
+
+ The introduction video for the sim-to-real experimental results.
+ 
+
+
+<a href="https://youtu.be/_vRQs1pZ2KQ?si=tOk082AGtuekALYN">
+  <img src="pics/Video_show.png" alt="观看视频" style="width:60%;display:block; margin-left:auto; margin-right:auto;">
+</a>
+
+
+ Our page at：
+  [OUR PAGE](https://blackvegetab1e.github.io/evolutionary_adversarial/).
+
 
 
 ## Depedence
